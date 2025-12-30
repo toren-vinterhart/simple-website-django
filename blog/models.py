@@ -17,3 +17,8 @@ class Post(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.title, self.id)
+    
+    class Meta:
+        ordering = ['-created_date']
+        # verbose_name = 'article'
+        # verbose_name_plural = 'articles'

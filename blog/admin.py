@@ -10,7 +10,7 @@ class PostAdmin(admin.ModelAdmin):
     # fields = ('title',)
     list_display = ('title', 'counted_views', 'status', 'published_date', 'created_date')
     list_filter = ('status',)
-    ordering = ['-created_date']
+    # ordering = ['-created_date']
     search_fields = ['title', 'content']
     list_editable = ['status']
 
