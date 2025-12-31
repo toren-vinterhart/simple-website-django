@@ -6,14 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    {% for post in posts %}
-        {% if post.status == 0%}
-        <p>this post does not published yet</p>
-        {% else %}
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.content }}</p>
-        <small>{{ post.published_date }}</small>
-        {% endif %}
-    {% endfor %}    
+    {{ post.title }}
 </body>
 </html>
