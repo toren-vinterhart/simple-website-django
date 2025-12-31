@@ -142,3 +142,6 @@ celerybeat.pid
 .env
 .env.*
 !env.example
+
+# custom
+/media

@@ -24,7 +24,7 @@
           <div class="single-post row">
             <div class="col-lg-12">
               <div class="feature-img">
-                <img class="img-fluid" src="{% static 'img/blog/feature-img1.jpg' %}" alt="" />
+                <img class="img-fluid" src="{{ post.image.url }}" alt="" />
               </div>
             </div>
             <div class="col-lg-3 col-md-3 meta-details">
@@ -47,10 +47,10 @@
                   <a href="#">Mark wiens</a> <span class="lnr lnr-user"></span>
                 </p>
                 <p class="date col-lg-12 col-md-12 col-6">
-                  <a href="#">12 Dec, 2017</a> <span class="lnr lnr-calendar-full"></span>
+                  <a href="#">{{ post.published_date }}</a> <span class="lnr lnr-calendar-full"></span>
                 </p>
                 <p class="view col-lg-12 col-md-12 col-6">
-                  <a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span>
+                  <a href="#">{{ post.counted_views }}</a> <span class="lnr lnr-eye"></span>
                 </p>
                 <p class="comments col-lg-12 col-md-12 col-6">
                   <a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span>
