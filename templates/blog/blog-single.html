@@ -29,14 +29,18 @@
             </div>
             <div class="col-lg-3 col-md-3 meta-details">
               <ul class="tags">
-                {{ post.category.all|join:", "}}
+                {% for category in post.category.all %}
+                <li>
+                  <a href="#">{{ category.name }}{% if not forloop.last %},{% endif %}</a>
+                </li>
+                {% endfor %}
               </ul>
               <div class="user-details row">
                 <p class="user-name col-lg-12 col-md-12 col-6">
                   <a href="#">Mark wiens</a> <span class="lnr lnr-user"></span>
                 </p>
                 <p class="date col-lg-12 col-md-12 col-6">
-                  <a href="#">{{ post.published_date }}</a> <span class="lnr lnr-calendar-full"></span>
+                  <a href="#">{{ post.published_date|date:"D d M Y" }}</a> <span class="lnr lnr-calendar-full"></span>
                 </p>
                 <p class="view col-lg-12 col-md-12 col-6">
                   <a href="#">{{ post.counted_views }}</a> <span class="lnr lnr-eye"></span>
