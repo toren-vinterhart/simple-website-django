@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    {{ post.title }}
+    {% for category in post.category.all %}
+        <h1>{{ category.name }}</h1>
+    {% endfor %}
 </body>
 </html>
