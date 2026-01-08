@@ -1,3 +1,5 @@
+{% load blog_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +8,22 @@
     <title>Document</title>
 </head>
 <body>
-    {% for category in post.category.all %}
+    <h1>Testing Page</h1>
+    <p>test: {% totalposts as tp %}</p>
+    <p>{{ tp }}</p>
+
+    <p>
+        {% posts as p %}
+        {% for post in p %}
+         <p>{{ post }}</P>
+        {% endfor%}
+    </p>
+
+    {% sum 20 30 %}
+    {% comment %} {% for category in post.category.all %}
         <h1>{{ category.name }}</h1>
     {% endfor %}
-    {{ post.category.all.1 }}
+    {{ post.category.all.1 }} {% endcomment %}
+
 </body>
 </html>
