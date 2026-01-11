@@ -9,13 +9,18 @@
 </head>
 <body>
     <h1>Testing Page</h1>
+
+    {% popularposts %} {% comment %} use inclusion_tag {% endcomment %}
+
     <p>test: {% totalposts as tp %}</p>
     <p>{{ tp }}</p>
 
     <p>
         {% posts as p %}
         {% for post in p %}
-         <p>{{ post }}</P>
+        <p>{{ post }}</P>
+        <p>{{ post.content|snippet }}</p>
+        <p>{{ post.content|snippet:20 }}</p>
         {% endfor%}
     </p>
 

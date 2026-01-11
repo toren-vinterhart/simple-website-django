@@ -12,8 +12,16 @@ def function():
 def function():
     posts = Post.objects.filter(status=1)
     return posts
- 
 
 @register.simple_tag(name='sum') # use it in this way in html: {% sum 20 30 %}
 def function(a, b):
     return a + b
+
+@register.filter
+def snippet(value, arg=100):
+    return value[:arg] + "..."
+
+@register.inclusion_tag('popularposts.html')
+def popularposts():
+    posts = Post.objects.filter(status=1).order_by('-published_date')[:3]
+    return {'posts': posts}
