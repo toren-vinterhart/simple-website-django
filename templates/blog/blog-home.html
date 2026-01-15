@@ -88,7 +88,7 @@
               <ul class="tags">
                 {% for category in post.category.all %}
                 <li>
-                  <a href="#">{{ category.name }}{% if not forloop.last %},{% endif %}</a>
+                  <a href="{% url 'blog:category' cat_name=category.name %}">{{ category.name }}{% if not forloop.last %},{% endif %}</a>
                 </li>
                 {% endfor %}
                 {% comment %} {{ post.category.all|join:", " }} {% endcomment %}
