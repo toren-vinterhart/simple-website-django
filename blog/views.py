@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from blog.models import Post
+from website.models import Contact
 
 # Create your views here.
 
@@ -43,6 +44,14 @@ def blog_search(request):
 #     return render(request, 'blog/blog-home.html', context)
 
 def test(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        c = Contact(name=name, email=email, subject=subject, message=message)
+        c.save()
+
     return render(request, 'test.html')
 
 # def test(request, pid):

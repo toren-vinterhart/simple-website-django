@@ -8,23 +8,44 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Testing Page</h1>
 
-    {% testposts %} {% comment %} use inclusion_tag {% endcomment %}
+    <form action="{% url 'blog:test' %}" method="post">
+        {% csrf_token %}
+        <label >name:</label>
+        <input type="text" name="name"><br>
+        <label >email:</label>
+        <input type="email" name="email"><br>
+        <label >subject:</label>
+        <input type="text" name="subject"><br>
+        <label >message:</label>
+        <input type="text" name="message"><br>
+        <button type="submit">submit</button>
+    </form>
 
-    <p>test: {% totalposts as tp %}</p>
-    <p>{{ tp }}</p>
 
-    <p>
+
+
+
+
+
+    {% comment %} <h1>Testing Page</h1> {% endcomment %}
+
+    {% comment %} {% testposts %} use inclusion_tag {% endcomment %}
+
+    {% comment %} <p>test: {% totalposts as tp %}</p>
+    <p>{{ tp }}</p> {% endcomment %}
+
+    {% comment %} <p>
         {% posts as p %}
         {% for post in p %}
         <p>{{ post }}</P>
         <p>{{ post.content|snippet }}</p>
         <p>{{ post.content|snippet:20 }}</p>
         {% endfor%}
-    </p>
+    </p> {% endcomment %}
 
-    {% sum 20 30 %}
+    {% comment %} {% sum 20 30 %} {% endcomment %}
+
     {% comment %} {% for category in post.category.all %}
         <h1>{{ category.name }}</h1>
     {% endfor %}
