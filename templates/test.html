@@ -8,7 +8,18 @@
     <title>Document</title>
 </head>
 <body>
+
     <form action="{% url 'website:test' %}" method="post">
+        {% csrf_token %}
+        {% comment %} {{ form }} {% endcomment %}
+        {{ form.as_p}}
+        {% comment %} {{ form.as_table}} {% endcomment %}
+        {% comment %} {{ form.as_ul}} {% endcomment %}
+        <button type="submit">submit</button>
+    </form>
+
+
+    {% comment %} <form action="{% url 'website:test' %}" method="post">
         {% csrf_token %}
         <label >name:</label>
         <input type="text" name="name"><br>
@@ -19,7 +30,7 @@
         <label >message:</label>
         <input type="text" name="message"><br>
         <button type="submit">submit</button>
-    </form>
+    </form> {% endcomment %}
 
     {% comment %} <h1>Testing Page</h1> {% endcomment %}
 
