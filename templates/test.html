@@ -8,8 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-
-    <form action="{% url 'blog:test' %}" method="post">
+    <form action="{% url 'website:test' %}" method="post">
         {% csrf_token %}
         <label >name:</label>
         <input type="text" name="name"><br>
@@ -21,12 +20,6 @@
         <input type="text" name="message"><br>
         <button type="submit">submit</button>
     </form>
-
-
-
-
-
-
 
     {% comment %} <h1>Testing Page</h1> {% endcomment %}
 
