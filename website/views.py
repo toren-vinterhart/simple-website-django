@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse,HttpResponseRedirect, JsonResponse
 from website.models import Contact
-from website.forms import NameForm, ContactModelForm
+from website.forms import ContactModelForm, NewsletterModelForm,  NameForm, TestContactModelForm
 
 # Create your views here.
 
@@ -12,19 +13,38 @@ def about_view(request):
     return render(request, 'website/about.html')
 
 def contact_view(request):
+    if request.method == 'POST':
+        form  = ContactModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            return HttpResponse('not valid')
+
     return render(request, 'website/contact.html')
+
+def newsletter_view(request):
+    if request.method == 'POST':
+        form = NewsletterModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # return HttpResponseRedirect('/')
+            return redirect(reverse('website:index'))
+        
+    return redirect(reverse('website:index'))
+
+
 
 # test for forms.ModelForm
 def test_view(request):
     if request.method == 'POST':
-        form = ContactModelForm(request.POST)
+        form = TestContactModelForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponse('done')
         else:
             return HttpResponse('not valid')
 
-    form = ContactModelForm()
+    form = TestContactModelForm()
     context = {'form': form}
     return render(request, 'test.html', context)
 
