@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from website.models import Contact
-from website.forms import NameForm
+from website.forms import NameForm, ContactModelForm
 
 # Create your views here.
 
@@ -14,24 +14,40 @@ def about_view(request):
 def contact_view(request):
     return render(request, 'website/contact.html')
 
+# test for forms.ModelForm
 def test_view(request):
     if request.method == 'POST':
-        form = NameForm(request.POST)
+        form = ContactModelForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
-            print(name, email, subject, message)
-            c = Contact(name=name, email=email, subject=subject, message=message)
-            c.save()
-            return HttpResponse('done!')
+            form.save()
+            return HttpResponse('done')
         else:
             return HttpResponse('not valid')
 
-    form = NameForm()
+    form = ContactModelForm()
     context = {'form': form}
     return render(request, 'test.html', context)
+
+
+# test for forms.Form
+# def test_view(request):
+#     if request.method == 'POST':
+#         form = NameForm(request.POST)
+#         if form.is_valid():
+#             name = form.cleaned_data['name']
+#             email = form.cleaned_data['email']
+#             subject = form.cleaned_data['subject']
+#             message = form.cleaned_data['message']
+#             print(name, email, subject, message)
+#             c = Contact(name=name, email=email, subject=subject, message=message)
+#             c.save()
+#             return HttpResponse('done!')
+#         else:
+#             return HttpResponse('not valid')
+
+#     form = NameForm()
+#     context = {'form': form}
+#     return render(request, 'test.html', context)
 
 # def test_view(request):
 #     if request.method == 'POST':
