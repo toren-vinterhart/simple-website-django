@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse,HttpResponseRedirect, JsonResponse
+from django.contrib import messages
 from website.models import Contact
 from website.forms import ContactModelForm, NewsletterModelForm,  NameForm, TestContactModelForm
 
@@ -17,8 +18,11 @@ def contact_view(request):
         form  = ContactModelForm(request.POST)
         if form.is_valid():
             form.save()
+            # messages.add_message(request, messages.SUCCESS, 'Your ticket submited successfully') # this line and next line do the same
+            messages.success(request, 'Your ticket submited successfully')
         else:
-            return HttpResponse('not valid')
+            # messages.add_message(request, messages.ERROR, "Your ticket didn't submited") # this line and next line do the same
+            messages.error(request, "Your ticket didn't submited")
 
     return render(request, 'website/contact.html')
 
