@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <div class="single-sidebar-widget popular-post-widget">
   <h4 class="popular-title">Latest Posts</h4>
   <div class="popular-post-list">
@@ -8,7 +10,13 @@
       </div>
       <div class="details">
         <a href="{% url 'blog:single' pid=post.id %}"><h6>{{ post.title }}</h6></a>
-        <p>{{ post.published_date|date:"d M Y" }}</p>
+        <p>{{ post.published_date|naturaltime }}</p>
+        {% comment %} <p>{{ post.published_date|date:"d M Y" }}</p>
+        <p>{{ 1|apnumber }}</p> <!-- use humanize: return one-->
+        <p>{{ 12500|intcomma }}</p> <!-- use humanize: return 12,500-->
+        <p>{{ 42500000|intword }}</p> <!-- use humanize: return 42.5 million-->
+        <p>{{ post.published_date|naturalday }}</p> <!-- use humanize: return yesterday, today, tomorrow or Jan. 26, 2026-->
+        <p>{{ post.published_date|naturaltime }}</p> <!-- use humanize: return 1 year ago, 2 weeks, 5 days ago and ...--> {% endcomment %}
       </div>
     </div>
     {% endfor %}
