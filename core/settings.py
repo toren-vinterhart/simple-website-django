@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'robots',
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig',
 ]
@@ -134,4 +135,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# sites framework
 SITE_ID = 2
+
+# robots
+ROBOTS_USE_HOST = True # False value prevents showing host name in robots.txt
+ROBOTS_USE_SITEMAP = True # False value prevents showing sitemap in robots.txt
