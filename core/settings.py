@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'robots',
     'debug_toolbar',
     'taggit',
+    'django_summernote',
 
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig',
@@ -149,3 +150,26 @@ ROBOTS_USE_SITEMAP = True # False value prevents showing sitemap in robots.txt
 
 # debug_toolbar
 INTERNAL_IPS = ['127.0.0.1',]
+
+# # summernote
+# X_FRAME_OPTIONS = 'SAMEORIGIN'
+# SUMMERNOTE_THEME = 'bs4'
+# SUMMERNOTE_CONFIG = {
+#     'iframe': True,
+#     'summernote': {
+#         'airMode': False,
+#         # 'width': '100%',
+#         'height': '480',
+#         'lang': None,
+#         'toolbar': [
+#             ['style', ['style']],
+#             ['font', ['bold', 'underline', 'clear']],
+#             ['fontname', ['fontname']],
+#             ['color', ['color']],
+#             ['para', ['ul', 'ol', 'paragraph']],
+#             ['table', ['table']],
+#             ['insert', ['link', 'picture', 'video']],
+#             ['view', ['fullscreen', 'codeview', 'help']],   
+#         ],
+#     }
+# }
