@@ -15,7 +15,7 @@ def about_view(request):
 
 def contact_view(request):
     if request.method == 'POST':
-        form  = ContactModelForm(request.POST)
+        form = ContactModelForm(request.POST)
         if form.is_valid():
             form.save()
             # messages.add_message(request, messages.SUCCESS, 'Your ticket submited successfully') # this line and next line do the same
@@ -24,7 +24,9 @@ def contact_view(request):
             # messages.add_message(request, messages.ERROR, "Your ticket didn't submited") # this line and next line do the same
             messages.error(request, "Your ticket didn't submited")
 
-    return render(request, 'website/contact.html')
+    form = ContactModelForm()
+    context = {'form': form} 
+    return render(request, 'website/contact.html', context)
 
 def newsletter_view(request):
     if request.method == 'POST':
