@@ -161,11 +161,12 @@
             <div class="single-footer-widget">
               <h6>Newsletter</h6>
               <p>For business professionals caught between high OEM price and mediocre print and graphic output.</p>
-              <div id="mc_embed_signup">
+              <div>
                 <form action="{% url 'website:newsletter' %}" method="post" class="subscription relative">
                   {% csrf_token %}
                   <div class="input-group d-flex flex-row">
                     <input name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email" />
+                    <input type="hidden" name="next" value="{{ request.path }}">
                     <button class="btn bb-btn" type="submit"><span class="lnr lnr-location"></span></button>
                   </div>
                   <div class="mt-10 info"></div>

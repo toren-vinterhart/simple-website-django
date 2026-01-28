@@ -34,7 +34,9 @@ def newsletter_view(request):
         if form.is_valid():
             form.save()
             # return HttpResponseRedirect('/')
-            return redirect(reverse('website:index'))
+            # return redirect(reverse('website:index'))
+            next_url = request.POST.get('next') or '/'
+            return redirect(next_url)
         
     return redirect(reverse('website:index'))
 
