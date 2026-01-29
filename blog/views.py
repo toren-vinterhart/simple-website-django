@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from blog.models import Post
+from blog.models import Post, Comment
 
 # Create your views here.
 
@@ -27,7 +27,12 @@ def blog_view(request, **kwargs):
 
 def blog_single(request, pid):
     post = get_object_or_404(Post, id=pid, status=1)
-    context = {'post': post}
+    comments = Comment.objects.filter(post=post, approved=True)
+    print(comments)
+    context = {
+        'post': post,
+        'comments': comments,
+        }
     return render(request, 'blog/blog-single.html', context)
 
 def blog_search(request):

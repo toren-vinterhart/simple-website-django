@@ -104,7 +104,7 @@
                   <a href="#">{{ post.counted_views }}</a> <span class="lnr lnr-eye"></span>
                 </p>
                 <p class="comments col-lg-12 col-md-12 col-6">
-                  <a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span>
+                  <a href="#">{% comments_count post.id %} Comments</a> <span class="lnr lnr-bubble"></span>
                 </p>
               </div>
             </div>
@@ -113,7 +113,8 @@
                 <img class="img-fluid" src="{{ post.image.url }}" alt="" />
               </div>
               <a class="posts-title" href="{% url 'blog:single' pid=post.id %}"><h3>{{ post.title }}</h3></a>
-              <p class="excert">{{ post.content|truncatechars:100 }}</p>
+              {% comment %} <p class="excert">{{ post.content|truncatechars:100 }}</p> {% endcomment %}
+              <p class="excert">{{ post.content|truncatewords_html:15|safe }}</p>
               <a href="{% url 'blog:single' pid=post.id %}" class="primary-btn">View More</a>
             </div>
           </div>

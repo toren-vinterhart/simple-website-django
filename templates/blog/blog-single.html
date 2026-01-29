@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load blog_tags %}
+{% load humanize %}
 
 {% block content %}
   <!-- start banner Area -->
@@ -47,7 +48,7 @@
                   <a href="#">{{ post.counted_views }}</a> <span class="lnr lnr-eye"></span>
                 </p>
                 <p class="comments col-lg-12 col-md-12 col-6">
-                  <a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span>
+                  <a href="#">{{ comments|length }} Comments</a> <span class="lnr lnr-bubble"></span>
                 </p>
                 <ul class="social-links col-lg-12 col-md-12 col-6">
                   <li>
@@ -99,7 +100,11 @@
             </div>
           </div>
           <div class="comments-area">
-            <h4>05 Comments</h4>
+            {% comment %} <h4>{{ comments.count }} Comments</h4> {% endcomment %} <!-- all these four lines do the same -->
+            <h4>{{ comments|length }} Comments</h4>
+            {% comment %} <h4>{% list_count comments %} Comments</h4> {% endcomment %} <!-- used custom template tag -->
+            {% comment %} <h4>{% comments_count post.id %} Comments</h4>  {% endcomment %} <!-- used custom template tag -->
+            {% for comment in comments %}
             <div class="comment-list">
               <div class="single-comment justify-content-between d-flex">
                 <div class="user justify-content-between d-flex">
@@ -107,84 +112,21 @@
                     <img src="{% static 'img/blog/c1.jpg' %}" alt="" />
                   </div>
                   <div class="desc">
-                    <h5><a href="#">Emilly Blunt</a></h5>
-                    <p class="date">December 4, 2017 at 3:12 pm</p>
-                    <p class="comment">Never say goodbye till the end comes!</p>
+                    <h5><a href="#">{{ comment.name }}</a></h5>
+                    <p class="date">{{ comment.created_date|naturaltime }}</p>
+                    <p class="comment">{{ comment.message }}</p>
                   </div>
                 </div>
+                <!--
                 <div class="reply-btn">
                   <a href="" class="btn-reply text-uppercase">reply</a>
                 </div>
+                -->
               </div>
             </div>
-            <div class="comment-list left-padding">
-              <div class="single-comment justify-content-between d-flex">
-                <div class="user justify-content-between d-flex">
-                  <div class="thumb">
-                    <img src="{% static 'img/blog/c2.jpg' %}" alt="" />
-                  </div>
-                  <div class="desc">
-                    <h5><a href="#">Elsie Cunningham</a></h5>
-                    <p class="date">December 4, 2017 at 3:12 pm</p>
-                    <p class="comment">Never say goodbye till the end comes!</p>
-                  </div>
-                </div>
-                <div class="reply-btn">
-                  <a href="" class="btn-reply text-uppercase">reply</a>
-                </div>
-              </div>
-            </div>
-            <div class="comment-list left-padding">
-              <div class="single-comment justify-content-between d-flex">
-                <div class="user justify-content-between d-flex">
-                  <div class="thumb">
-                    <img src="{% static 'img/blog/c3.jpg' %}" alt="" />
-                  </div>
-                  <div class="desc">
-                    <h5><a href="#">Annie Stephens</a></h5>
-                    <p class="date">December 4, 2017 at 3:12 pm</p>
-                    <p class="comment">Never say goodbye till the end comes!</p>
-                  </div>
-                </div>
-                <div class="reply-btn">
-                  <a href="" class="btn-reply text-uppercase">reply</a>
-                </div>
-              </div>
-            </div>
-            <div class="comment-list">
-              <div class="single-comment justify-content-between d-flex">
-                <div class="user justify-content-between d-flex">
-                  <div class="thumb">
-                    <img src="{% static 'img/blog/c4.jpg' %}" alt="" />
-                  </div>
-                  <div class="desc">
-                    <h5><a href="#">Maria Luna</a></h5>
-                    <p class="date">December 4, 2017 at 3:12 pm</p>
-                    <p class="comment">Never say goodbye till the end comes!</p>
-                  </div>
-                </div>
-                <div class="reply-btn">
-                  <a href="" class="btn-reply text-uppercase">reply</a>
-                </div>
-              </div>
-            </div>
-            <div class="comment-list">
-              <div class="single-comment justify-content-between d-flex">
-                <div class="user justify-content-between d-flex">
-                  <div class="thumb">
-                    <img src="{% static 'img/blog/c5.jpg' %}" alt="" />
-                  </div>
-                  <div class="desc">
-                    <h5><a href="#">Ina Hayes</a></h5>
-                    <p class="date">December 4, 2017 at 3:12 pm</p>
-                    <p class="comment">Never say goodbye till the end comes!</p>
-                  </div>
-                </div>
-                <div class="reply-btn">
-                  <a href="" class="btn-reply text-uppercase">reply</a>
-                </div>
-              </div>
-            </div>
+            {% empty %}
+              <p>No comment here. Be the first one to tell your thought</p>
+            {% endfor %}
           </div>
           <div class="comment-form">
             <h4>Leave a Comment</h4>
