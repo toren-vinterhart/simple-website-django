@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 from blog.models import Post, Comment
+from blog.forms import CommentModelForm
 
 # Create your views here.
 
@@ -26,12 +28,21 @@ def blog_view(request, **kwargs):
     return render(request, 'blog/blog-home.html', context)
 
 def blog_single(request, pid):
+    if request.method == 'POST':
+        form = CommentModelForm(request.POST, post=pid) # I didn't want to pass pid from hidden input so override __init__ and save methods of CommentModelForm and pass pid here
+        if form.is_valid():
+            form.save()
+            messages.success(request, "You comment has been submited")
+        else:
+            messages.error(request, "Your comment didn't submited")
+
     post = get_object_or_404(Post, id=pid, status=1)
     comments = Comment.objects.filter(post=post, approved=True)
-    print(comments)
+    form = CommentModelForm()
     context = {
         'post': post,
         'comments': comments,
+        'form': form,
         }
     return render(request, 'blog/blog-single.html', context)
 
