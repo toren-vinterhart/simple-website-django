@@ -2058,6 +2058,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-top ul li {
+  color: #ffffff;
   display: inline-block;
   margin-right: 15px;
 }
