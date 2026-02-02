@@ -1,34 +1,52 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect('website:index')
+    
     if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # return redirect('/')
-                return redirect('website:index')
-            else:
-                pass
+            login(request, form.get_user())
+            return redirect('website:index')
+    else:
+        form = AuthenticationForm()
 
-    form = AuthenticationForm()
     context = {'form': form}
     return render(request, 'accounts/login.html', context)
 
+@login_required
 def logout_view(request):
-    pass
+    logout(request)
+    return redirect('website:index')
 
 def signup_view(request):
     return render(request, 'accounts/signup.html')
+
+# def login_view(request):
+#     if request.user.is_authenticated:
+#         return redirect('/')
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request=request, data=request.POST)
+#         if form.is_valid():
+#             username = form.cleaned_data.get('username')
+#             password = form.cleaned_data.get('password')
+#             user = authenticate(request, username=username, password=password)
+#             if user is not None:
+#                 login(request, user)
+#                 # return redirect('/')
+#                 return redirect('website:index')
+#             else:
+#                 pass
+
+#     form = AuthenticationForm()
+#     context = {'form': form}
+#     return render(request, 'accounts/login.html', context)
 
 # def login_view(request):
 #     if request.method == 'POST':
