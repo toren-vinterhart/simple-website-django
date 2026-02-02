@@ -27,6 +27,7 @@
               <h3 class="mb-4 text-center">Have an account?</h3>
               <form action="{% url 'accounts:login' %}" class="signin-form" method="post">
                 {% csrf_token %}
+                {% comment %} {{ form.as_p }} {% endcomment %}
                 <div class="form-group">
                   <input type="text" name="username" class="form-control" placeholder="Username" required />
                 </div>
