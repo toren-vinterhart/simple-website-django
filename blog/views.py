@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from blog.models import Post, Comment
@@ -37,6 +37,10 @@ def blog_single(request, pid):
             messages.error(request, "Your comment didn't submited")
 
     post = get_object_or_404(Post, id=pid, status=1)
+
+    if post.login_require and not request.user.is_authenticated:
+        return redirect('accounts:login')
+    
     comments = Comment.objects.filter(post=post, approved=True)
     form = CommentModelForm()
     context = {
